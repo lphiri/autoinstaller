@@ -9,11 +9,11 @@
     persistent: yes
   with_items: "{{ selinux_bools }}"
 
-- name: set NetworkManager to not alter DNS configuration
-  lineinfile:
-    path: /etc/NetworkManager/NetworkManager.conf
-    regexp: 'plugins=ifcfg-rh'
-    insertafter: 'dns=none'
+# - name: set NetworkManager to not alter DNS configuration
+#   lineinfile:
+#     path: /etc/NetworkManager/NetworkManager.conf
+#     regexp: 'plugins=ifcfg-rh'
+#     insertafter: 'dns=none'
 
 - name: deploy resolv.conf template
   template:

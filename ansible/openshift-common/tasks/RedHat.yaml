@@ -2,22 +2,22 @@
   include_vars:
     file: "{{ ansible_distribution }}.yml"
 
-- name: check to see if system is already registered
-  command: subscription-manager status
-  register: sub_status
-  ignore_errors: true
+# - name: check to see if system is already registered
+#   command: subscription-manager status
+#   register: sub_status
+#   ignore_errors: true
 
-- name: Register system
-  redhat_subscription:
-    state: present
-    username: "{{ rhn_user }}"
-    password: "{{ rhn_pass }}"
-    # pool: "{{ rhn_pool_id }}"
-    # force_register: yes
-  when: sub_status.rc == 1
+# - name: Register system
+#   redhat_subscription:
+#     state: present
+#     username: "{{ rhn_user }}"
+#     password: "{{ rhn_pass }}"
+#     # pool: "{{ rhn_pool_id }}"
+#     # force_register: yes
+#   when: sub_status.rc == 1
 
-- name: attach to desired subscription
-  command: subscription-manager attach --pool={{ rhn_pool_id }}
+# - name: attach to desired subscription
+#   command: subscription-manager attach --pool={{ rhn_pool_id }}
 
 - name: disable all repos
   command: subscription-manager repos --disable="*"

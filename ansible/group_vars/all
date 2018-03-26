@@ -77,8 +77,8 @@ remote_users:
     origin: centos
     openshift-enterprise: cloud-user
   other:
-    origin: vagrant
-    openshift-enterprise: vagrant
+    origin: "{{ other_remote_user }}"
+    openshift-enterprise: "{{ other_remote_user }}"
 
 cluster_user: "{{ remote_users[virt_type][openshift_type] }}"
 

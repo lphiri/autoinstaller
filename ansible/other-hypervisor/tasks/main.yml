@@ -1,2 +1,20 @@
 ---
 # tasks file for other-hypervisor
+- name: Load host configuration file
+  include_vars:
+    file: "{{hosts_config}}"
+    name: other_instances
+
+
+- name: Create Hosts
+  add_host:
+    name: "{{ item.name }}"
+    ansible_ssh_host: "{{ item.public_hostname }}"
+    ansible_ssh_port: 22
+    ansible_user: "{{ item.ansible_user }}"
+    groups: "{{ item.role }},openshift"
+    private_ip: "{{ item.private_ip_address }}"
+    private_hostname: "{{ item.private_hostname }}"
+    public_ip: "{{ item.public_ip }}"
+    public_hostname: "{{ item.public_hostname }}"
+  with_items: "{{ other_instances.instances }}" 

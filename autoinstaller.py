@@ -31,10 +31,10 @@ class autoInstaller:
         self.deployment = self.global_confs['deployment']
         try:
             self.deployment_confs = self._load_conf_section(self.deployment)
-            if self.deployment == 'other':
-                self.master = self.deployment_confs['master']
-                self.node = self.deployment_confs['node']
-                self._create_other_inventory()
+            # if self.deployment == 'other':
+            #     self.master = self.deployment_confs['master']
+            #     self.node = self.deployment_confs['node']
+            #     self._create_other_inventory()
             self.debug_confs = self._load_conf_section('debug')
         except ConfigParser.NoSectionError:
             print("* No %s options found - none loaded" % self.deployment )
@@ -116,35 +116,35 @@ The OpenShift In Action Team
 
         print string
 
-    def _create_other_inventory(self):
-        '''
-        for the 'other' type of installation, you'll supply information about 2 servers that already exist. The IPs will be provided in the config file and the autoinstaller ansible inventory will be created dynamically using this function
-        '''
-        if self.deployment == 'other':
-            try:
-                self.inventory = "/tmp/autoinstaller-other-inventory"
-                fh = open(self.inventory, 'w')
+#     def _create_other_inventory(self):
+#         '''
+#         for the 'other' type of installation, you'll supply information about 2 servers that already exist. The IPs will be provided in the config file and the autoinstaller ansible inventory will be created dynamically using this function
+#         '''
+#         if self.deployment == 'other':
+#             try:
+#                 self.inventory = "/tmp/autoinstaller-other-inventory"
+#                 fh = open(self.inventory, 'w')
 
-                inv_str = """
-[openshift]
-{master}
-{node}
+#                 inv_str = """
+# [openshift]
+# {master}
+# {node}
 
-[master]
-{master}
+# [master]
+# {master}
 
-[node]
-{node}
-                """.format(
-                master = self.master,
-                node = self.node
-                )
+# [node]
+# {node}
+#                 """.format(
+#                 master = self.master,
+#                 node = self.node
+#                 )
 
-                print( "* Writing out custom inventory to use with other Provider" )
-                fh.write(inv_str)
-                fh.close()
-            except Exception, e:
-                raise(e)
+#                 print( "* Writing out custom inventory to use with other Provider" )
+#                 fh.write(inv_str)
+#                 fh.close()
+#             except Exception, e:
+#                 raise(e)
 
     def _deploy_launch_process(self, d_command):
         '''
